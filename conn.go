@@ -100,7 +100,7 @@ func (e *closeError) Error() string {
 
 var (
 	errWriteTimeout        = &netError{msg: "websocket: write timeout", timeout: true}
-	errUnexpectedEOF       = &closeError{code: CloseAbnormalClosure, text: io.ErrUnexpectedEOF.Error()}
+	ErrUnexpectedEOF       = &closeError{code: CloseAbnormalClosure, text: io.ErrUnexpectedEOF.Error()}
 	errBadWriteOpCode      = errors.New("websocket: bad write message type")
 	errWriteClosed         = errors.New("websocket: write closed")
 	errInvalidControlFrame = errors.New("websocket: invalid control frame")
@@ -545,7 +545,7 @@ func (c *Conn) readFull(p []byte) (err error) {
 	if n == len(p) {
 		err = nil
 	} else if err == io.EOF {
-		err = errUnexpectedEOF
+		err = ErrUnexpectedEOF
 	}
 	return
 }
@@ -757,7 +757,7 @@ func (r messageReader) Read(b []byte) (int, error) {
 
 	err := r.c.readErr
 	if err == io.EOF && r.seq == r.c.readSeq {
-		err = errUnexpectedEOF
+		err = ErrUnexpectedEOF
 	}
 	return 0, err
 }

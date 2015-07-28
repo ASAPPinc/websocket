@@ -160,8 +160,8 @@ func TestCloseBeforeFinalFrame(t *testing.T) {
 		t.Fatalf("NextReader() returned %d, %v", op, err)
 	}
 	_, err = io.Copy(ioutil.Discard, r)
-	if err != errUnexpectedEOF {
-		t.Fatalf("io.Copy() returned %v, want %v", err, errUnexpectedEOF)
+	if err != ErrUnexpectedEOF {
+		t.Fatalf("io.Copy() returned %v, want %v", err, ErrUnexpectedEOF)
 	}
 	_, _, err = rc.NextReader()
 	if err != io.EOF {
@@ -184,12 +184,12 @@ func TestEOFBeforeFinalFrame(t *testing.T) {
 		t.Fatalf("NextReader() returned %d, %v", op, err)
 	}
 	_, err = io.Copy(ioutil.Discard, r)
-	if err != errUnexpectedEOF {
-		t.Fatalf("io.Copy() returned %v, want %v", err, errUnexpectedEOF)
+	if err != ErrUnexpectedEOF {
+		t.Fatalf("io.Copy() returned %v, want %v", err, ErrUnexpectedEOF)
 	}
 	_, _, err = rc.NextReader()
-	if err != errUnexpectedEOF {
-		t.Fatalf("NextReader() returned %v, want %v", err, errUnexpectedEOF)
+	if err != ErrUnexpectedEOF {
+		t.Fatalf("NextReader() returned %v, want %v", err, ErrUnexpectedEOF)
 	}
 }
 
